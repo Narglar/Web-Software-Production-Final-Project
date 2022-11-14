@@ -1,6 +1,6 @@
 # Project Team 4
 
-
+Let us get STARTED
 
 ## Getting started
 
