@@ -13,12 +13,12 @@ test:
   image: node:latest
   stage: test
   script:
-    # Go to api directory
-    - cd api
+    # Go to backend directory
+    - cd backend
     # Run npm commands
     - npm install && npm test
-    # Go to webapp directory
-    - cd ../webapp
+    # Go to frontend directory
+    - cd ../frontend
     # Run npm commands
     - npm install && npm test
 
@@ -29,20 +29,20 @@ build:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    # Go to webapp directory
-    - cd ../webapp
+    # Go to frontend directory
+    - cd ../frontend
     # Run npm commands
     - npm run build
-    # Build Webapp
-    - docker build -f webapp/DockerfileServer -t "${WEBAPP_IMAGE}" .
+    # Build Frontend
+    - docker build -f frontend/DockerfileServer -t "${FRONTEND_IMAGE}" .
 
 
 deploy:
   image: alpine:latest
   stage: deploy
   script:
-    # push Webapp
-    - docker push "${WEBAPP_IMAGE}"
+    # push Frontend
+    - docker push "${FRONTEND_IMAGE}"
     - apk update && apk add rsync openssh curl
     # Prepare SSH settings
     - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
@@ -50,8 +50,8 @@ deploy:
     # Prepare files for transfer
     - mkdir remote_dir
     - cp docker-compose.server.yml remote_dir/docker-compose.yml
-    - echo "API_IMAGE=${API_IMAGE}" >> remote_dir/.env
-    - echo "WEBAPP_IMAGE=${WEBAPP_IMAGE}" >> remote_dir/.env
+    - echo "BACKEND_IMAGE=${BACKEND_IMAGE}" >> remote_dir/.env
+    - echo "FRONTEND_IMAGE=${FRONTEND_IMAGE}" >> remote_dir/.env
     # Transfer to server
     - rsync -r remote_dir "${REMOTE_HOST}:./"
     # Run commands on the server
