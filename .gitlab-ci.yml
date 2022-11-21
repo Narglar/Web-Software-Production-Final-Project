@@ -1,8 +1,7 @@
 variables:
   REMOTE_HOST: deploy@172.16.5.193
-  API_IMAGE: ${CI_REGISTRY_IMAGE}/api
-  WEBAPP_IMAGE: ${CI_REGISTRY_IMAGE}/webapp
-
+  BACKEND_IMAGE: ${CI_REGISTRY_IMAGE}/backend
+  FRONTEND_IMAGE: ${CI_REGISTRY_IMAGE}/frontend
 
 stages:          # List of stages for jobs, and their order of execution
   - test
@@ -22,29 +21,26 @@ test:
     # Run npm commands
     - npm install && npm test
 
-build:
+build_main:
   image: docker:latest
   stage: build
   services:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    # Go to frontend directory
-    - cd frontend
-     # Run npm commands
-    - npm install && npm run build
      # Build & push Backend
-    - docker build -f backend/Dockerfile -t "${BACKEND_IMAGE}" .
+    - docker build -f backend/DockerfileServer -t "${BACKEND_IMAGE}" .
     - docker push "${BACKEND_IMAGE}"
     # Build and push Frontend
-    - docker build -f frontend/Dockerfile -t "${FRONTEND_IMAGE}" .
+    - docker build -f frontend/DockerfileServer -t "${FRONTEND_IMAGE}" .
     - docker push "${FRONTEND_IMAGE}"
+  only: 
+    - main
 
 deploy:
   image: alpine:latest
   stage: deploy
   script:
-   
     - apk update && apk add rsync openssh curl
     # Prepare SSH settings
     - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
