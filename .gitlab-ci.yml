@@ -34,7 +34,7 @@ build:
     # Run npm commands
     - npm install && npm run build
     # Build Frontend
-    - docker build -f frontend/Dockerfile -t "${FRONTEND_IMAGE}" .
+    - docker build -f Dockerfile -t "${FRONTEND_IMAGE}" .
 
 
 deploy:
@@ -49,7 +49,7 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     # Prepare files for transfer
     - mkdir remote_dir
-    - cp docker-compose.server.yml remote_dir/docker-compose.yml
+    - cp docker-compose.yml remote_dir/docker-compose.yml
     - echo "BACKEND_IMAGE=${BACKEND_IMAGE}" >> remote_dir/.env
     - echo "FRONTEND_IMAGE=${FRONTEND_IMAGE}" >> remote_dir/.env
     # Transfer to server
