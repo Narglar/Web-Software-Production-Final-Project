@@ -30,7 +30,7 @@ build:
   script:
     - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
     # Go to frontend directory
-    - cd ../frontend
+    - cd frontend
     # Run npm commands
     - npm run build
     # Build Frontend
