@@ -32,7 +32,7 @@ build:
     # Go to frontend directory
     - cd frontend
      # Run npm commands
-    - npm run build
+    - npm install && npm run build
 
 deploy:
   image: alpine:latest
