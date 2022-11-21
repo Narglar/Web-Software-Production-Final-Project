@@ -33,17 +33,18 @@ build:
     - cd frontend
      # Run npm commands
     - npm install && npm run build
-
-deploy:
-  image: alpine:latest
-  stage: deploy
-  script:
-    # Build & push Backend
+     # Build & push Backend
     - docker build -f backend/Dockerfile -t "${BACKEND_IMAGE}" .
     - docker push "${BACKEND_IMAGE}"
     # Build and push Frontend
     - docker build -f frontend/Dockerfile -t "${FRONTEND_IMAGE}" .
     - docker push "${FRONTEND_IMAGE}"
+
+deploy:
+  image: alpine:latest
+  stage: deploy
+  script:
+   
     - apk update && apk add rsync openssh curl
     # Prepare SSH settings
     - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
