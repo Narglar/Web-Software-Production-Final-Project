@@ -29,17 +29,19 @@ build:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    # Go to frontend directory
+    - frontend
      # Run npm commands
-    - npm run build frontend
-    # Build Frontend
-    - docker build -f "frontend/Dockerfile" -t "${FRONTEND_IMAGE}" .
+    - npm run build
+
 
 
 deploy:
   image: alpine:latest
   stage: deploy
   script:
-    # push Frontend
+    # Build and push Frontend
+    - docker build -f frontend/Dockerfile -t "${FRONTEND_IMAGE}" .
     - docker push "${FRONTEND_IMAGE}"
     - apk update && apk add rsync openssh curl
     # Prepare SSH settings
