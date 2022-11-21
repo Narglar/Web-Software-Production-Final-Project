@@ -13,12 +13,38 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  v0.2.0: dockerize localhost (also delete all uesless containers)
 
+ v0.3.0: CI/CD Pipeline & Remote Server
+
+ Turn on everything: VPN, remote server, docker compose
+ 
+ Create .gitlab-ci.yml 
+
+ Add docker-compose.server.yml and DockerfileServer for both front and backend
+
+ All pipelines complete successfully.
+
+
+
 ## Completed Phases and date:
  1 (14.11.2022)
 
  2 (14.11.2022)
 
-## Screenshot (in folder)
+ 3 (21.11.2022)
+
+
+
+## URL
+
+- IP address: 172.16.5.193
+
+- Hostname: 22wsp3004projectteam4
+
+- Ports:
+    - Frontend: `8080`
+    - Backend: `4040`
+
+## Screenshots (in folder)
 
 
 ## Expected project grade and the reasoning behind it:
