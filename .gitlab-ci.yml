@@ -34,12 +34,13 @@ build:
      # Run npm commands
     - npm run build
 
-
-
 deploy:
   image: alpine:latest
   stage: deploy
   script:
+    # Build & push Backend
+    - docker build -f backend/Dockerfile -t "${BACKEND_IMAGE}" .
+    - docker push "${BACKEND_IMAGE}"
     # Build and push Frontend
     - docker build -f frontend/Dockerfile -t "${FRONTEND_IMAGE}" .
     - docker push "${FRONTEND_IMAGE}"
