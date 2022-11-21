@@ -34,7 +34,7 @@ build:
     # Run npm commands
     - npm install && npm run build
     # Build Frontend
-    - docker build -f Dockerfile -t "${FRONTEND_IMAGE}" .
+    - docker build -f "frontend/Dockerfile" -t "${FRONTEND_IMAGE}" .
 
 
 deploy:
