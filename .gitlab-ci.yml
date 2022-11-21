@@ -29,10 +29,11 @@ build:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+     # Run npm commands
+    - npm run build frontend
     # Build Frontend
     - docker build -f "frontend/Dockerfile" -t "${FRONTEND_IMAGE}" .
-    # Run npm commands
-    - npm build frontend
+
 
 deploy:
   image: alpine:latest
