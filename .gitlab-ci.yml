@@ -40,6 +40,9 @@ build_main:
 deploy:
   image: alpine:latest
   stage: deploy
+  environment:
+    name: development
+    url: 172.16.5.193:8080
   script:
     - apk update && apk add rsync openssh curl
     # Prepare SSH settings

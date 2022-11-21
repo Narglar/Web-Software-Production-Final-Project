@@ -6,6 +6,7 @@ services:
     env_file:
       - .env
     restart: always
+    
   backend:
     image: ${BACKEND_IMAGE}
     ports:
