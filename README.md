@@ -23,6 +23,12 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  All pipelines complete successfully.
 
+ v0.4.1: Backend returns 3 pre defined todo-tasks from the /api/v1/tasks/ endpoint.
+
+ Create a new ´/api/v1/tasks/´ endpoint and returns 3 pre defined todo-tasks from the endpoint.
+
+ v0.4.2: Ilkka
+
 
 
 ## Completed Phases and date:
@@ -31,6 +37,8 @@ Team members: Ilkka Niemi, Xiaomin Wu
  2 (14.11.2022)
 
  3 (21.11.2022)
+
+ 4 
 
 
 
@@ -41,8 +49,10 @@ Team members: Ilkka Niemi, Xiaomin Wu
 - Hostname: 22wsp3004projectteam4
 
 - Ports:
-    - Frontend: `8080`
-    - Backend: `4040`
+    - Frontend: ´8080´
+                ´3000´ in localhost
+    - Backend:  ´4040´
+                ´5001´ in localhost
 
 ## Screenshots (in folder)
 
