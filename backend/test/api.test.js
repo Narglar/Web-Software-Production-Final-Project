@@ -117,12 +117,12 @@ it('should return 200 when task was updated', async () => {
 });
 
 it('should return 200 when task was deleted', async () => {
-  await request(app)
+  request(app)
     .delete('/api/v1/tasks/2')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(200, { message: 'Deleted' });
-  await request(app)
+  request(app)
     .get('/api/v1/tasks/2')
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
