@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const tasks = [
+let todos = [
     {
         id: 1,
         name: 'Wolk dogs',
@@ -15,6 +15,6 @@ const tasks = [
     },
 ];
 router.get('/', (req, res) => {
-    res.status(200).json(tasks);
+    res.status(200).json(todos);
 });
 module.exports = router;

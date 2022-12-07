@@ -27,7 +27,11 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  Create a new ´/api/v1/tasks/´ endpoint and returns 3 pre defined todo-tasks from the endpoint.
 
- v0.4.2: Ilkka
+ v0.4.2: Functional part for frontend
+
+ Fetch default tasks from backend. Checkbox and description box. User can add, delete and mark task done on frontend.
+
+ v0.4.3: css file
 
 
 
@@ -39,6 +43,8 @@ Team members: Ilkka Niemi, Xiaomin Wu
  3 (21.11.2022)
 
  4 
+
+ 5 (5.12.2022)
 
 
 
