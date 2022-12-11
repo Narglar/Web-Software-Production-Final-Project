@@ -70,8 +70,11 @@ const ToDoList = () => {
 
 
     return (
+        
+      
         <div className='App'>
-            <h1>My ToDo List</h1>
+            
+            <h1> My ToDo List</h1>
 
             <div className='input-wrapper'>
                 <input
@@ -99,7 +102,7 @@ const ToDoList = () => {
                                 name={task.name} />
                             <textarea>description for my task</textarea>
                             <button className="delete-button" onClick={() => { deleteTask(task, task.id); }}>
-                                Delete
+                                Delete task {task.id}
                             </button>
                         </li>
                     </>
