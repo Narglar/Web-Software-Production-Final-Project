@@ -33,6 +33,8 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  v0.4.3: css file
 
+ v0.5.0: Create 5 unit tests for backend and frontend.   
+
 
 
 ## Completed Phases and date:
@@ -42,10 +44,11 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  3 (21.11.2022)
 
- 4 
+ 4.1 (28.11.2022)
 
+ 4.2 (11.12.2022) 
+ 
  5 (5.12.2022)
-
 
 
 ## URL
