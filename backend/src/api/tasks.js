@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     console.log(id);
-    const task = tasks.find((t) => t.id === Number(id));
+    const task = todos.find((t) => t.id === Number(id));
     if (task) {
         res.status(200).json(task);
     } else {
@@ -32,25 +32,25 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const { id, name } = req.body;
-    tasks.push({ id, name });
+    todos.push({ id, name });
     res.status(201).json({ message: 'Created' });
 });
 
 router.patch('/:id', (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
-    const index = tasks.findIndex((t) => t.id === Number(id));
+    const index = todos.findIndex((t) => t.id === Number(id));
     const updatedTask = {
         id: Number(id),
         name,
     };
-    tasks[index] = updatedTask;
+    todos[index] = updatedTask;
     res.status(200).json({ message: 'Updated' });
 });
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
-    tasks = tasks.filter((t) => t.id !== Number(id));
+    todos = todos.filter((t) => t.id !== Number(id));
     res.status(200).json({ message: 'Deleted' });
 });
 
