@@ -35,6 +35,8 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  v0.5.0: Create 5 unit tests for backend and frontend.   
 
+ v1.0.0: Done the project. Merge all useful branchs.
+
 
 
 ## Completed Phases and date:
@@ -46,7 +48,9 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  4.1 (28.11.2022)
 
- 4.2 (11.12.2022) 
+ 4.2 (7.12.2022)
+
+ 4.3 (11.12.2022) 
  
  5 (5.12.2022)
 
