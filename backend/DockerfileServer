@@ -1,6 +1,9 @@
+
 FROM node:latest
-COPY ./backend /opt/app
+COPY ./webapp /opt/app
 RUN cd /opt/app \
-  && npm install --prod 
+  && rm package-lock.json \
+  && npm install --prod \
+  && npm run build:dev
 WORKDIR /opt/app
-CMD ["npm", "run", "start"]
+CMD ["npx", "serve", "-s", "build"]
