@@ -4,7 +4,7 @@ import ToDoListItem from "./TodoListItem";
 import "./TodoList.css";
 
 
-//const port = 5001;
+const port = 5001;
 
 const ToDoList = () => {
     const [Tasks, setTasks] = useState([]);
@@ -13,7 +13,7 @@ const ToDoList = () => {
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND}/v1/tasks`)
+            const response = await fetch(`http://localhost:5001/api/v1/tasks`)
             const data = await response.json();
             console.log(data);
             setTasks(data);
@@ -29,7 +29,7 @@ const ToDoList = () => {
                 ...Tasks,
                 newtask
             ]);
-            fetch(`${process.env.REACT_APP_BACKEND}/v1/tasks`, {
+            fetch(`http://localhost:${port}/api/v1/tasks`, {
                 method: "post",
                 headers: {
                     'Accept': 'application/json',
@@ -51,7 +51,7 @@ const ToDoList = () => {
         });
 
         setTasks(newTasks);
-        fetch(`${process.env.REACT_APP_BACKEND}/v1/tasks/${id}`, {
+        fetch(`http://localhost:${port}/api/v1/tasks/${id}`, {
             method: "delete",
             headers: {
                 'Accept': 'application/json',
