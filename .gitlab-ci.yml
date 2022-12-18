@@ -1,5 +1,5 @@
 variables:
-  REMOTE_HOST: deploy@172.16.5.193
+  REMOTE_HOST: DEPLOY_KEY@172.16.5.193
   BACKEND_IMAGE: ${CI_REGISTRY_IMAGE}/backend
   FRONTEND_IMAGE: ${CI_REGISTRY_IMAGE}/frontend
 
@@ -15,11 +15,48 @@ test:
     # Go to backend directory
     - cd backend
     # Run npm commands
+    - npm install && npm run lint && npm test
+    # Go to frontend directory
+    - cd ../frontend
+    # Remove package-lock.json because of a bug
+    # (https://stackoverflow.com/questions/63321707/react-npm-install-fails)
+    - rm package-lock.json
+    # Run npm commands
+    - npm install && npm test
+  except:
+    - main
+
+test_main:
+  image: node:latest
+  stage: test
+  script:
+    # Go to backend directory
+    - cd backend
+    # Run npm commands
     - npm install && npm test
     # Go to frontend directory
     - cd ../frontend
+    # Remove package-lock.json because of a bug
+    # (https://stackoverflow.com/questions/63321707/react-npm-install-fails)
+    - rm package-lock.json
     # Run npm commands
     - npm install && npm test
+  only: 
+    - main
+
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    # Build BACKEND
+    - docker build -f backend/DockerfileServer -t "${BACKEND_IMAGE}" .
+    # Build FRONTEND
+    - docker build -f frontend/DockerfileServer -t "${FRONTEND_IMAGE}" .
+  except: 
+    - main
+
 
 build_main:
   image: docker:latest
@@ -64,3 +101,33 @@ deploy:
             docker-compose pull;
             docker-compose up -d;
             "
+
+deploy_main:
+  image: alpine:latest
+  stage: deploy
+  environment:
+    name: main
+    url: 172.16.5.193
+  script:
+    - apk update && apk add rsync openssh curl
+    # Prepare SSH settings
+    - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    # Prepare files for transfer
+    - mkdir main_dir
+    - cp docker-compose.server.yml main_dir/docker-compose.yml
+    - echo "BACKEND_IMAGE=${BACKEND_IMAGE}" >> main_dir/.env
+    - echo "FRONTEND_IMAGE=${FRONTEND_IMAGE}" >> main_dir/.env
+    # Transfer to server
+    - rsync -r main_dir "${REMOTE_HOST}:./"
+    # Run commands on the server
+    - ssh ${REMOTE_HOST} /bin/bash
+      "
+      echo 'Starting..';
+      cd ~/main_dir;
+      docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY;
+      docker-compose pull;
+      docker-compose up -d;
+      "
+  only:
+    - main
