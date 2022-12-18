@@ -1,36 +1,58 @@
 body{
+  box-sizing: border-box;
   margin: 15mm;
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   font-weight: 1.5;
-  line-height: 2.5;
+  line-height: 1.0;
 }
 h1 {
+    display: block;
+    max-width: 100%;
     text-align: center;
+    margin: 0;
+    margin-bottom: 1rem;
     color: rgb(2, 6, 3);
     background-color: rgba(0, 35, 133, 0.388);
     background-blend-mode: color-burn;
     border-style: dotted;
   }
   .todo-list {
-    border-style: dashed;
+    cursor: pointer;
+    justify-content: center;
     text-align: center;
-    border-collapse: separate;
-    border-style: none;
     border-color: rgb(250, 250, 250);
     list-style: none;
     margin: 1rem auto;
-    padding: 0;
     width: 90%;
     max-width: 40rem;
+    display: block;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   button {
-    text-align: center;
+ 
+
+    position: sticky;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
     size: 5mm;
     color:deeppink;
     background-color: khaki;
     margin: auto;
+    float: center;
+    padding: 8px;
+    
   }
 div{
+  position: sticky;
+  display: block;
+  max-width: 100%;
   text-align: center;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+li{
+  position: relative;
+  opacity: initial;
 }
