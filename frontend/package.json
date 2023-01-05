@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "corss-env": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -13,9 +14,9 @@
   },
 
   "scripts": {
-    "start": "cross-env REACT_APP_BACKEND=http://localhost:5001/api/v1/tasks react-scripts start",
+    "start": "cross-env REACT_APP_BACKEND=http://localhost:5001/api react-scripts start",
     "build:dev": "cross-env REACT_APP_BACKEND=http://172.16.5.193:8080/api react-scripts build",
-    "build:prod": "cross-env REACT_APP_BACKEND=http://172.16.5.193:8080/api react-scripts build",
+    "build:prod": "cross-env REACT_APP_BACKEND=http://172.16.5.193:5001/api react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
