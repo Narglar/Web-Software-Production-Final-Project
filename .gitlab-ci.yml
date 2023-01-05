@@ -64,3 +64,33 @@ deploy:
             docker-compose pull;
             docker-compose up -d;
             "
+
+deploy_development:
+  image: alpine:latest
+  stage: deploy
+  environment:
+    name: development
+    url: 172.16.5.193:8080
+
+deploy_production:
+  image: alpine:latest
+  stage: deploy
+  environment:
+    name: production
+    url: 172.16.5.193
+
+build_production:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+    # Build & push API
+    - docker build -f backend/DockerfileServer -t "${BACKEND_RELEASE_IMAGE}" .
+    - docker push "${API_RELEASE_IMAGE}"
+    # Build & push Webapp
+    - docker build -f frontend/DockerfileProduction -t "${FRONTEND_RELEASE_IMAGE}" .
+    - docker push "${FRONTEND_RELEASE_IMAGE}"
+  only: 
+    - production

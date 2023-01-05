@@ -10,15 +10,18 @@ const ToDoList = () => {
     const [Tasks, setTasks] = useState([]);
     const [Task, setTask] = useState("");
 
-
     useEffect(() => {
         const fetchTasks = async () => {
-            const response = await fetch(`http://localhost:5001/api/v1/tasks`)
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/v1/tasks`)
             const data = await response.json();
             console.log(data);
-            setTasks(data);
+            setTasks(data)
         }
-        fetchTasks();
+        try {
+            fetchTasks();
+        } catch (err) {
+            console.log(err);
+        }
     }, []);
 
 
