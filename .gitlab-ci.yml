@@ -37,7 +37,7 @@ build_main:
   only: 
     - main
 
-deploy:
+deploy_main:
   image: alpine:latest
   stage: deploy
   environment:
@@ -64,6 +64,8 @@ deploy:
             docker-compose pull;
             docker-compose up -d;
             "
+  only: 
+    - main
 
 deploy_development:
   image: alpine:latest
