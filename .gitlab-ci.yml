@@ -37,7 +37,7 @@ build_main:
   only: 
     - main
 
-deploy_main:
+deploy_development:
   image: alpine:latest
   stage: deploy
   environment:
@@ -67,19 +67,35 @@ deploy_main:
   only: 
     - main
 
-deploy_development:
-  image: alpine:latest
-  stage: deploy
-  environment:
-    name: development
-    url: 172.16.5.193:8080
-
 deploy_production:
   image: alpine:latest
   stage: deploy
   environment:
     name: production
     url: 172.16.5.193
+  script:
+    - apk update && apk add rsync openssh curl
+    # Prepare SSH settings
+    - mkdir -p ~/.ssh && (umask  077 ; echo "${DEPLOY_KEY_PRIVATE}" | base64 -d > ~/.ssh/id_rsa)
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    # Prepare files for transfer
+    - mkdir production_dir
+    - cp docker-compose.production.yml production_dir/docker-compose.yml
+    - echo "API_RELEASE_IMAGE=${API_RELEASE_IMAGE}" >> production_dir/.env
+    - echo "WEBAPP_RELEASE_IMAGE=${WEBAPP_RELEASE_IMAGE}" >> production_dir/.env
+    # Transfer to server
+    - rsync -r production_dir "${REMOTE_HOST}:./"
+    # Run commands on the server
+    - ssh ${REMOTE_HOST} /bin/bash
+      "
+      echo 'Starting..';
+      cd ~/production_dir;
+      docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY;
+      docker-compose pull;
+      docker-compose up -d;
+      "
+  only:
+    - production
 
 build_production:
   image: docker:latest
