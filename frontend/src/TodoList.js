@@ -70,10 +70,10 @@ const ToDoList = () => {
 
 
     return (
-        
-      
+
+
         <div className='App'>
-            
+
             <h1> My ToDo List</h1>
 
             <div className='input-wrapper'>
