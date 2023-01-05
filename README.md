@@ -37,22 +37,26 @@ Team members: Ilkka Niemi, Xiaomin Wu
 
  v1.0.0: Done the project. Merge all useful branchs.
 
+ v1.1.0: fix cross environment problems
+
 
 
 ## Completed Phases and date:
- 1 (14.11.2022)
+ v0.1.0 (14.11.2022)
 
- 2 (14.11.2022)
+ v0.2.0 (14.11.2022)
 
- 3 (21.11.2022)
+ v0.3.0 (21.11.2022)
 
- 4.1 (28.11.2022)
+ v0.4.1 (28.11.2022)
 
- 4.2 (7.12.2022)
+ v0.4.2 (7.12.2022)
 
- 4.3 (11.12.2022) 
+ v0.4.3 (11.12.2022) 
  
- 5 (5.12.2022)
+ v0.5.0 (5.12.2022)
+
+ v1.1.0 (5.1.2023)
 
 
 ## URL
