@@ -19,7 +19,7 @@ test:
     # Go to frontend directory
     - cd ../frontend
     # Run npm commands
-    - npm install && npm test
+    - npm install && npm install cross-env && npm test
 
 build_main:
   image: docker:latest
