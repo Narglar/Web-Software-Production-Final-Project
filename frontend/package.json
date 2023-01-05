@@ -13,7 +13,7 @@
   },
 
   "scripts": {
-    "start": "cross-env REACT_APP_BACKEND=http://localhost:5001/api react-scripts start",
+    "start": "cross-env REACT_APP_BACKEND=http://localhost:5001/api/v1/tasks react-scripts start",
     "build:dev": "cross-env REACT_APP_BACKEND=http://172.16.5.193:8080/api react-scripts build",
     "build:prod": "cross-env REACT_APP_BACKEND=http://172.16.5.193:8080/api react-scripts build",
     "test": "react-scripts test",
